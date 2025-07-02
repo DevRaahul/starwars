@@ -1,7 +1,13 @@
-const TableContainer = () => {
+import { useEffect } from "react";
+import { TableComponent } from "./TableComponent";
+
+const TableContainer: React.FC = () => {
+  useEffect(() => {}, []);
   return (
     <>
-      <h2>Table container</h2>
+      <div className="m-2 p-2">
+        <TableComponent />
+      </div>
     </>
   );
 };

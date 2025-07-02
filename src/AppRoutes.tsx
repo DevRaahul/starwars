@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router";
-import Header from "./pages/Header";
-import Footer from "./pages/Footer";
+import Header from "./components/Header";
 import TableContainer from "./components/TableContainer/TableContainer";
 
 const AppRoutes = () => {
@@ -10,7 +9,6 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<TableContainer />} />
       </Routes>
-      <Footer />
     </>
   );
 };
