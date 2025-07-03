@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { starHeroSlice } from "./feature/starHerosSlice";
+import starHeroSlice from "./feature/starHerosSlice";
 
 export const store = configureStore({
   reducer: {

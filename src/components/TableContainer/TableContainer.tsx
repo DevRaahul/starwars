@@ -24,10 +24,8 @@ const TableContainer: React.FC = () => {
               };
               arrayList.push(obj);
             }
-            console.log(arrayList);
+            setpeopleList([...arrayList]);
           });
-
-        setpeopleList([...arrayList]);
       });
   };
 
