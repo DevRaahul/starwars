@@ -1,70 +1,8 @@
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PaginationDemo } from "../PaginationComponent/PaginationComponent";
+import type { ITableList } from "@/constants/interface";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-];
-
-export function TableComponent() {
+export const TableComponent: React.FC<any> = ({ data }) => {
   return (
     <Table>
       <TableCaption>A list of star wars characters.</TableCaption>
@@ -76,11 +14,11 @@ export function TableComponent() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="p-4">{invoice.invoice}</TableCell>
-            <TableCell className="p-4">{invoice.paymentStatus}</TableCell>
-            <TableCell className="p-4">{invoice.paymentMethod}</TableCell>
+        {data.map((hero: any) => (
+          <TableRow key={hero.uid}>
+            <TableCell className="p-4">{hero.name}</TableCell>
+            <TableCell className="p-4">{hero.gender}</TableCell>
+            <TableCell className="p-4">{hero.planet.name}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -93,4 +31,4 @@ export function TableComponent() {
       </TableFooter>
     </Table>
   );
-}
+};

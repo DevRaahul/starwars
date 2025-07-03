@@ -1,1 +1,1 @@
-export const starVersePeopleApi = "https://swapi.tech/api/people";
+export const peopleApi = "https://swapi.tech/api/people";
