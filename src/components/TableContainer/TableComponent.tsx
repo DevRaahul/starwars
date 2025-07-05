@@ -10,13 +10,11 @@ export const TableComponent: React.FC<ITableComponent> = ({ data, loading }) => 
       <Table>
         <TableHeaderComponent />
         <TableBodyCompoent data={data} loading={loading} />
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
-            <TableCell colSpan={3}>
-              <PaginationDemo />
-            </TableCell>
+            <TableCell colSpan={3}></TableCell>
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </div>
   );

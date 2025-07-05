@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import starHeroSlice from "./feature/starHerosSlice";
+import peopleSlice from "./feature/peopleSlice";
 
 export const store = configureStore({
   reducer: {
-    starHero: starHeroSlice,
+    people: peopleSlice,
   },
 });
 

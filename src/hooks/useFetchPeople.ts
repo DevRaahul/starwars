@@ -1,34 +1,28 @@
 import { useEffect, useState } from "react";
 import type { ICharacterDetails, IHeroDetails, IPeopleApi, IPersonInfo, loadingObj, PlanetDetailResponse } from "@/constants/interface";
+import { setNextUrl, setPrevUrl, setPeopleList, setFetchedList } from "@/store/feature/peopleSlice";
+import { createListForView } from "@/utils/utils";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 export const useFetchPeople = (url: string) => {
-  const [peopleList, setpeopleList] = useState<ICharacterDetails[] | IPersonInfo[]>([]);
   const [loading, setLoading] = useState<loadingObj>({ nameLoading: false, detailsLoading: false });
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const { fetchedData } = useAppSelector((state) => state.people);
 
   useEffect(() => {
-    try {
-      setLoading({ nameLoading: true, detailsLoading: true });
-      fetchData(url);
-    } catch (e) {
-      console.log(e);
+    debugger;
+    if (!fetchedData[url]?.length) {
+      try {
+        setLoading({ nameLoading: true, detailsLoading: true });
+        fetchData(url);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      dispatch(setPeopleList(fetchedData[url]));
     }
-  }, []);
-
-  const createListForView = (planetData: PlanetDetailResponse[], peopleData: IHeroDetails[]) => {
-    const arrayList = [];
-    for (let i = 0; i < peopleData.length; i++) {
-      let obj = {
-        planet: planetData[i]?.result?.properties,
-        uid: peopleData[i].result.uid,
-        ...peopleData[i].result.properties,
-      };
-      arrayList.push(obj);
-    }
-    console.log(arrayList);
-    setLoading({ nameLoading: false, detailsLoading: false });
-    setpeopleList([...arrayList]);
-  };
+  }, [url]);
 
   const getHeroDetails = (data: ICharacterDetails[]) => {
     //batch the character details promises
@@ -44,7 +38,11 @@ export const useFetchPeople = (url: string) => {
         Promise.all(planetList)
           .then((planetData) => Promise.all(planetData.map((dt) => dt.json())))
           .then((planetRes: PlanetDetailResponse[]) => {
-            createListForView(planetRes, peopleData);
+            const arrayList: IPersonInfo[] = createListForView(planetRes, peopleData);
+            setLoading({ nameLoading: false, detailsLoading: false });
+            debugger;
+            dispatch(setPeopleList(arrayList));
+            dispatch(setFetchedList({ data: arrayList, url }));
           })
           .catch((err) => setError(err));
       })
@@ -56,7 +54,10 @@ export const useFetchPeople = (url: string) => {
       .then((res) => res.json())
       .then((data: IPeopleApi) => {
         //set names first and make call to get person details
-        setpeopleList(data.results);
+        // dispatch(setNextUrl(data.next));
+        // dispatch(setPrevUrl(data.previous));
+        console.log("data", data);
+        dispatch(setPeopleList(data.results));
         setLoading((prev) => {
           return {
             ...prev,
@@ -73,5 +74,5 @@ export const useFetchPeople = (url: string) => {
       });
   };
 
-  return { peopleList, loading, error };
+  return { loading, error };
 };
