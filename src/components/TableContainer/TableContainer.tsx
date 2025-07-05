@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useFetchPeople } from "@/hooks/useFetchPeople";
 import { TableComponent } from "./TableComponent";
-import { Input } from "../ui/input";
 import { useAppSelector } from "@/store/hooks";
 import { PaginationComponent } from "../PaginationComponent/PaginationComponent";
+import SearchComponent from "../searchComponent/SearchComponent";
 
 const TableContainer: React.FC = () => {
   const { peopleDetailList } = useAppSelector((state) => state.people);
@@ -22,7 +22,7 @@ const TableContainer: React.FC = () => {
   return (
     <>
       <div className="m-2 p-2">
-        <Input placeholder="Search by name ..." className="w-1/2 mb-2" />
+        <SearchComponent />
         <TableComponent data={peopleDetailList} loading={loading} />
         <PaginationComponent
           totalPage={totalPage}
