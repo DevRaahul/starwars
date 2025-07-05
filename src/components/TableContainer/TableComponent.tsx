@@ -1,5 +1,4 @@
-import { Table, TableCell, TableFooter, TableRow } from "@/components/ui/table";
-import { PaginationDemo } from "../PaginationComponent/PaginationComponent";
+import { Table } from "@/components/ui/table";
 import TableHeaderComponent from "./TableHeaderComponent";
 import TableBodyCompoent from "./TableBodyCompoent";
 import type { ITableComponent } from "@/constants/interface";
@@ -10,11 +9,6 @@ export const TableComponent: React.FC<ITableComponent> = ({ data, loading }) => 
       <Table>
         <TableHeaderComponent />
         <TableBodyCompoent data={data} loading={loading} />
-        {/* <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3}></TableCell>
-          </TableRow>
-        </TableFooter> */}
       </Table>
     </div>
   );

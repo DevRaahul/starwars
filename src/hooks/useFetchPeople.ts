@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import type { ICharacterDetails, IHeroDetails, IPeopleApi, IPersonInfo, loadingObj, PlanetDetailResponse } from "@/constants/interface";
-import { setNextUrl, setPrevUrl, setPeopleList, setFetchedList } from "@/store/feature/peopleSlice";
-import { createListForView } from "@/utils/utils";
+import { setPeopleList, setFetchedList } from "@/store/feature/peopleSlice";
+import { createListForView, getApiUrl } from "@/utils/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-export const useFetchPeople = (url: string) => {
+export const useFetchPeople = (pageNum: number) => {
+  const [totalPage, setTotalPage] = useState<number>(0);
   const [loading, setLoading] = useState<loadingObj>({ nameLoading: false, detailsLoading: false });
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
@@ -12,17 +13,17 @@ export const useFetchPeople = (url: string) => {
 
   useEffect(() => {
     debugger;
-    if (!fetchedData[url]?.length) {
+    if (!fetchedData[pageNum]?.length) {
       try {
         setLoading({ nameLoading: true, detailsLoading: true });
-        fetchData(url);
+        fetchData(getApiUrl(pageNum));
       } catch (e) {
         console.log(e);
       }
     } else {
-      dispatch(setPeopleList(fetchedData[url]));
+      dispatch(setPeopleList(fetchedData[pageNum]));
     }
-  }, [url]);
+  }, [pageNum]);
 
   const getHeroDetails = (data: ICharacterDetails[]) => {
     //batch the character details promises
@@ -40,9 +41,8 @@ export const useFetchPeople = (url: string) => {
           .then((planetRes: PlanetDetailResponse[]) => {
             const arrayList: IPersonInfo[] = createListForView(planetRes, peopleData);
             setLoading({ nameLoading: false, detailsLoading: false });
-            debugger;
             dispatch(setPeopleList(arrayList));
-            dispatch(setFetchedList({ data: arrayList, url }));
+            dispatch(setFetchedList({ data: arrayList, page: pageNum }));
           })
           .catch((err) => setError(err));
       })
@@ -53,10 +53,7 @@ export const useFetchPeople = (url: string) => {
     fetch(url)
       .then((res) => res.json())
       .then((data: IPeopleApi) => {
-        //set names first and make call to get person details
-        // dispatch(setNextUrl(data.next));
-        // dispatch(setPrevUrl(data.previous));
-        console.log("data", data);
+        setTotalPage(data.total_pages);
         dispatch(setPeopleList(data.results));
         setLoading((prev) => {
           return {
@@ -74,5 +71,5 @@ export const useFetchPeople = (url: string) => {
       });
   };
 
-  return { loading, error };
+  return { loading, error, totalPage };
 };

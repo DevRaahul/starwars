@@ -1,21 +1,35 @@
+import { useState } from "react";
 import { useFetchPeople } from "@/hooks/useFetchPeople";
 import { TableComponent } from "./TableComponent";
 import { Input } from "../ui/input";
 import { useAppSelector } from "@/store/hooks";
-import { getApiUrl } from "@/utils/utils";
-import { PaginationDemo } from "../PaginationComponent/PaginationComponent";
+import { PaginationComponent } from "../PaginationComponent/PaginationComponent";
 
 const TableContainer: React.FC = () => {
-  const { pageNum, peopleDetailList } = useAppSelector((state) => state.people);
-  console.log("people details", peopleDetailList);
+  const { peopleDetailList } = useAppSelector((state) => state.people);
+  const [pageNum, setpageNum] = useState<number>(1);
 
-  const { loading, error } = useFetchPeople(getApiUrl(pageNum));
+  const { loading, error, totalPage } = useFetchPeople(pageNum);
+
+  const handleNextBtnClick = () => {
+    setpageNum((prev) => prev + 1);
+  };
+
+  const handlePrevBtnClick = () => {
+    setpageNum((prev) => prev - 1);
+  };
+
   return (
     <>
       <div className="m-2 p-2">
         <Input placeholder="Search by name ..." className="w-1/2 mb-2" />
         <TableComponent data={peopleDetailList} loading={loading} />
-        <PaginationDemo />
+        <PaginationComponent
+          totalPage={totalPage}
+          pageNum={pageNum}
+          handleNextBtnClick={handleNextBtnClick}
+          handlePrevBtnClick={handlePrevBtnClick}
+        />
       </div>
     </>
   );
