@@ -1,10 +1,9 @@
-import type { FC } from "react";
 import { useNavigate } from "react-router";
 import { Skeleton } from "../ui/skeleton";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import type { IPersonInfo, ITableComponent } from "@/constants/interface";
+import type { IPersonInfo, ITableComponent } from "@/constants/peopleInterface";
 
-const TableBodyCompoent: FC<ITableComponent> = ({ data, loading }) => {
+const TableBodyCompoent: React.FC<ITableComponent> = ({ data, loading }) => {
   const navigate = useNavigate();
   const handleNavigate = (details: IPersonInfo): void => {
     navigate("/personInfo", {

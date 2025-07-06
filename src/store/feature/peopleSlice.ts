@@ -1,4 +1,4 @@
-import type { ICharacterDetails, IPersonInfo } from "@/constants/interface";
+import type { IPersonInfo } from "@/constants/peopleInterface";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface heroState {

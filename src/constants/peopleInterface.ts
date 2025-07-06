@@ -147,3 +147,7 @@ export interface ITableComponent {
   loading: loadingObj;
   data: any[];
 }
+
+export interface IPersonalDetails {
+  person: IPersonInfo;
+}

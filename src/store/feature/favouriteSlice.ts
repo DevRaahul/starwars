@@ -1,10 +1,11 @@
+import type { IPersonInfo } from "@/constants/peopleInterface";
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface planetState {
-  value: [];
+export interface favouriteState {
+  value: IPersonInfo[] | [];
 }
 
-const initialState: planetState = {
+const initialState: favouriteState = {
   value: [],
 };
 
@@ -13,10 +14,12 @@ export const favouriteSlice = createSlice({
   initialState,
   reducers: {
     addFavourite: (state, action) => {
-      state.value = action.payload;
+      let data = [...state.value, action.payload];
+      state.value = data;
     },
     removeFavourite: (state, action) => {
-      state.value = action.payload;
+      let data = state.value.filter((fav) => fav.uid !== action.payload.uid);
+      state.value = data;
     },
   },
 });

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { ICharacterDetails, IHeroDetails, IPeopleApi, IPersonInfo, loadingObj, PlanetDetailResponse } from "@/constants/interface";
+import type { ICharacterDetails, IHeroDetails, IPeopleApi, IPersonInfo, loadingObj, PlanetDetailResponse } from "@/constants/peopleInterface";
 import { setPeopleList, setFetchedList } from "@/store/feature/peopleSlice";
-import { createListForView, getApiUrl } from "@/utils/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getPeopleUrl, createListForView } from "../utils/utils";
 
 export const useFetchPeople = (pageNum: number) => {
   const [totalPage, setTotalPage] = useState<number>(0);
@@ -16,7 +16,7 @@ export const useFetchPeople = (pageNum: number) => {
     if (!fetchedData[pageNum]?.length) {
       try {
         setLoading({ nameLoading: true, detailsLoading: true });
-        fetchData(getApiUrl(pageNum));
+        fetchData(getPeopleUrl(pageNum));
       } catch (e) {
         console.log(e);
       }
