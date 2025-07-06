@@ -1,20 +1,28 @@
+import type { FC } from "react";
+import { useNavigate } from "react-router";
 import { Skeleton } from "../ui/skeleton";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import type { ITableComponent } from "@/constants/interface";
-import * as React from "react";
+import type { IPersonInfo, ITableComponent } from "@/constants/interface";
 
-const TableBodyCompoent: React.FC<ITableComponent> = ({ data, loading }) => {
+const TableBodyCompoent: FC<ITableComponent> = ({ data, loading }) => {
+  const navigate = useNavigate();
+  const handleNavigate = (details: IPersonInfo): void => {
+    navigate("/personInfo", {
+      state: details,
+    });
+  };
+
   return (
     <>
       <TableBody>
-        {data.map((hero: any) => (
-          <TableRow key={hero.uid}>
+        {data.map((hero: IPersonInfo) => (
+          <TableRow key={hero.uid} onClick={() => handleNavigate(hero)}>
             {loading.nameLoading ? (
               <TableCell>
                 <Skeleton className="h-4 w-[200px]" />
               </TableCell>
             ) : (
-              <TableCell className="p-4">{hero.name}</TableCell>
+              <TableCell className="p-4 hover:cursor-pointer">{hero.name}</TableCell>
             )}
             {loading.detailsLoading ? (
               <TableCell>

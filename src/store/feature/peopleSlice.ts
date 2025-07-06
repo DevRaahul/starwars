@@ -2,7 +2,7 @@ import type { ICharacterDetails, IPersonInfo } from "@/constants/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface heroState {
-  peopleDetailList: ICharacterDetails[] | IPersonInfo[];
+  peopleDetailList: IPersonInfo[];
   fetchedData: {
     [key: string]: IPersonInfo[];
   };
