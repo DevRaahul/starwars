@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useFetchPeople } from "@/hooks/useFetchPeople";
 import { TableComponent } from "./TableComponent";
 import { useAppSelector } from "@/store/hooks";
@@ -17,10 +17,6 @@ const TableContainer: React.FC = () => {
   const handlePrevBtnClick = () => {
     setpageNum((prev) => prev - 1);
   };
-
-  useEffect(() => {
-    console.log(peopleDetailList);
-  }, [peopleDetailList]);
 
   return (
     <>

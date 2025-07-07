@@ -145,7 +145,7 @@ export interface loadingObj {
 
 export interface ITableComponent {
   loading: loadingObj;
-  data: any[];
+  data: IPersonInfo[];
   showFavIcon?: boolean;
 }
 
