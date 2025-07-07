@@ -30,6 +30,7 @@ const TableBodyCompoent: React.FC<ITableComponent> = ({ data, loading, showFavIc
               </TableCell>
             ) : (
               <TableCell
+                aria-label="Person Name"
                 className="p-4 min-w-[130px] sm:min-w-[120px] lg:min-w-[200px] hover:cursor-pointer hover:text-blue-400 text-ellipsis"
                 onClick={() => handleNavigate(hero)}
               >
@@ -41,14 +42,18 @@ const TableBodyCompoent: React.FC<ITableComponent> = ({ data, loading, showFavIc
                 <Skeleton className="h-4 bg-gray-400" />
               </TableCell>
             ) : (
-              <TableCell className="p-4 min-w-[100px] sm:min-w-[80px] lg:min-w-[190px] text-ellipsis">{hero?.gender}</TableCell>
+              <TableCell aria-label="Person Gender" className="p-4 min-w-[100px] sm:min-w-[80px] lg:min-w-[190px] text-ellipsis">
+                {hero?.gender}
+              </TableCell>
             )}
             {loading.detailsLoading ? (
               <TableCell className="min-w-[80px] sm:min-w-[100px] lg:min-w-[190px] py-2">
                 <Skeleton className="h-4 bg-gray-400" />
               </TableCell>
             ) : (
-              <TableCell className="p-4 min-w-[80px] sm:min-w-[100px] lg:min-w-[190px] text-ellipsis">{hero?.planet?.name}</TableCell>
+              <TableCell aria-label="Planet Name" className="p-4 min-w-[80px] sm:min-w-[100px] lg:min-w-[190px] text-ellipsis">
+                {hero?.planet?.name}
+              </TableCell>
             )}
             {showFavIcon && (
               <TableCell className="p-4 w-[100px] min-w-[80px] sm:min-w-[100px] lg:min-w-[120px]">
