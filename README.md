@@ -1,69 +1,38 @@
-# React + TypeScript + Vite
+Tech stack used:-
+React, Typescript, Shadcn, Tailwind CSS, Vite, React testing library, Jest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+How to start App -
 
-Currently, two official plugins are available:
+1. clone the repository to the local
+2. install dependancies (npm install) in root folder
+3. run the project (npm run dev)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+What has been implemented:-
+List view with name, gender, and planet.
+Favourite list view with name, gender, and planet.
+Character info card with option for adding character to favourite list.
+Pagination for the list.
+Cached data for the list pagination.
+Added search option by character name (exact name search can be added).
+Added redux store to save fetched data.
+Made the table responsive as per screen size.
+Added skeleton loaders.
+Added Dummy Image avatar using UI-Placeholder API.
 
-## Expanding the ESLint configuration
+Search mechanism:-
+For implementing search, I had two options for the dataset, which are
+i) Consider the current page records only.
+ii) Consider all data records fetched till now.
+I opt for the second option as it gives more records to choose from.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+What is remaining:-
+Not able to get the spaceship name as per characters (there is no direct way to fetch data)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+What should have been added:-
+Wanted to add functionality to remove the ongoing fetch api call on pagination clicks
+Wanted to add a caching mechanism for planets.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Problem faced:-
+The API endpoint sometimes takes too much time to fetch a response.
+The API for personal details was failing sometimes.
+The app was getting disconnected sometimes on a Windows machine. I think the issue is with the Vite config after the latest update; it needs further debugging.
