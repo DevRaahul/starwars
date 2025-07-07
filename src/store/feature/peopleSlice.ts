@@ -1,5 +1,5 @@
 import type { IPageInfo, IPersonInfo } from "@/constants/peopleInterface";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export interface heroState {
   peopleDetailList: IPersonInfo[];
@@ -27,32 +27,32 @@ export const peopleSlice = createSlice({
   name: "people",
   initialState,
   reducers: {
-    setPeopleList: (state, action) => {
+    setPeopleList: (state, action: PayloadAction<IPersonInfo[]>) => {
       state.peopleDetailList = action.payload;
     },
     setFetchedList: (state, action) => {
       const { data, page } = action.payload;
       state.fetchedData[page] = data;
     },
-    setSearchedList: (state, action) => {
-      let data = [...state.searchList, ...action.payload];
-      state.searchList = data;
+    setSearchedList: (state, action: PayloadAction<IPersonInfo[]>) => {
+      // let data = [...state.searchList, ...action.payload];
+      state.searchList.push(...action.payload);
     },
-    setSearchResult: (state, action) => {
+    setSearchResult: (state, action: PayloadAction<IPersonInfo[]>) => {
       state.searchResult = action.payload;
     },
-    setPageInfo: (state, action) => {
+    setPageInfo: (state, action: PayloadAction<IPageInfo>) => {
       let data = { ...state.pageInfo, ...action.payload };
       state.pageInfo = data;
     },
-    changeGender: (state, action) => {
+    changeGender: (state, action: PayloadAction<{ person: IPersonInfo; personGender: string }>) => {
       const { person, personGender } = action.payload;
 
       const modifiedList: IPersonInfo[] = state.peopleDetailList.map((record) =>
         record.uid === person.uid ? { ...record, gender: personGender } : record
       );
-      console.log("58", modifiedList);
 
+      state.peopleDetailList = [];
       state.peopleDetailList = modifiedList;
     },
   },

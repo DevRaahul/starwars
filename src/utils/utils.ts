@@ -3,7 +3,7 @@ import type { IFilmDetails } from "@/constants/filmInterface";
 import type { PlanetDetailResponse, IHeroDetails, IPersonInfo } from "@/constants/peopleInterface";
 
 export const createListForView = (planetData: PlanetDetailResponse[], peopleData: IHeroDetails[]): IPersonInfo[] => {
-  const arrayList = [];
+  const arrayList: IPersonInfo[] = [];
   for (let i = 0; i < peopleData.length; i++) {
     let obj = {
       planet: planetData[i]?.result?.properties,
@@ -12,7 +12,6 @@ export const createListForView = (planetData: PlanetDetailResponse[], peopleData
     };
     arrayList.push(obj);
   }
-  console.log(arrayList);
   return arrayList;
 };
 
@@ -29,8 +28,6 @@ export const sortFilmsByCharcters = (data: IFilmDetails[], uid: string): string[
   return film;
 };
 
-export const getPeopleUrl = (pageNum: number): string => {
-  return `${baseUrl}people?page=${pageNum}&limit=10`;
-};
+export const getPeopleUrl = (pageNum: number): string => `${baseUrl}people?page=${pageNum}&limit=10`;
 
 export const getFilmUrl = (): string => `${baseUrl}films`;

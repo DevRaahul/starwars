@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IFilmDetails } from "@/constants/filmInterface";
 
 export interface filmState {
-  value: IFilmDetails[] | [];
+  value: IFilmDetails[];
 }
 
 const initialState: filmState = {
@@ -13,7 +13,7 @@ export const filmSlice = createSlice({
   name: "film",
   initialState,
   reducers: {
-    addFilms: (state, action) => {
+    addFilms: (state, action: PayloadAction<IFilmDetails[]>) => {
       state.value = action.payload;
     },
   },
