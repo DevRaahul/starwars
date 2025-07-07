@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ICharacterDetails, IHeroDetails, IPeopleApi, IPersonInfo, loadingObj, PlanetDetailResponse } from "@/constants/peopleInterface";
-import { setPeopleList, setFetchedList } from "@/store/feature/peopleSlice";
+import { setPeopleList, setFetchedList, setSearchedList } from "@/store/feature/peopleSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getPeopleUrl, createListForView } from "../utils/utils";
 
@@ -42,6 +42,7 @@ export const useFetchPeople = (pageNum: number) => {
             const arrayList: IPersonInfo[] = createListForView(planetRes, peopleData);
             setLoading({ nameLoading: false, detailsLoading: false });
             dispatch(setPeopleList(arrayList));
+            dispatch(setSearchedList(arrayList));
             dispatch(setFetchedList({ data: arrayList, page: pageNum }));
           })
           .catch((err) => setError(err));

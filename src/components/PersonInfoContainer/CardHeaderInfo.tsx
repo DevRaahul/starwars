@@ -4,10 +4,10 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../ui/button";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import type { IPersonalDetails } from "@/constants/peopleInterface";
+import type { IPersonalDetails, IPersonInfo } from "@/constants/peopleInterface";
 import { CardTitle } from "../ui/card";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { addFavourite } from "@/store/feature/favouriteSlice";
+import { addFavourite, removeFavourite } from "@/store/feature/favouriteSlice";
 
 const CardHeaderInfo: React.FC<IPersonalDetails> = ({ person }) => {
   const navigate = useNavigate();
@@ -15,24 +15,33 @@ const CardHeaderInfo: React.FC<IPersonalDetails> = ({ person }) => {
   const dispatch = useAppDispatch();
   const [isFav, setIsFav] = useState(false);
 
-  useEffect(()=>{
-    
-  },[value]);
+  useEffect(() => {
+    if (value.length === 0) {
+      setIsFav(false);
+    } else {
+      setIsFav(isCharacterFavourite(value).length > 0);
+    }
+  }, [value]);
 
-  const isCharacterFavourite = (list) => {
-    list.filter((fav) => fav.uid === person.uid
+  const isCharacterFavourite = (list: IPersonInfo[]): IPersonInfo[] => {
+    return list.filter((fav: IPersonInfo) => fav.uid === person.uid);
   };
 
   const addToFavourite = () => {
-    dispatch(addFavourite(person));
+    if (isFav) {
+      dispatch(removeFavourite(person.uid));
+    } else {
+      dispatch(addFavourite(person));
+    }
   };
 
   const icon: JSX.Element = useMemo(() => {
-    if (value.length > 0 && data[0].uid === person.uid) {
+    if (isFav) {
       return <FaHeart />;
+    } else {
+      return <FaRegHeart />;
     }
-    return <FaRegHeart />;
-  }, [value]);
+  }, [isFav]);
 
   return (
     <>

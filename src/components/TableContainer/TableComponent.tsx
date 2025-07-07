@@ -8,7 +8,7 @@ export const TableComponent: React.FC<ITableComponent> = ({ data, loading }) => 
     <div className="rounded-md border border-gray-300">
       <Table>
         <TableHeaderComponent />
-        <TableBodyCompoent data={data} loading={loading} />
+        <TableBodyCompoent data={data} loading={loading} showFavIcon={false} />
       </Table>
     </div>
   );

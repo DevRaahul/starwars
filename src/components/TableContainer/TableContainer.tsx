@@ -6,7 +6,7 @@ import { PaginationComponent } from "../PaginationComponent/PaginationComponent"
 import SearchComponent from "../searchComponent/SearchComponent";
 
 const TableContainer: React.FC = () => {
-  const { peopleDetailList } = useAppSelector((state) => state.people);
+  const { peopleDetailList, searchResult } = useAppSelector((state) => state.people);
   const [pageNum, setpageNum] = useState<number>(1);
 
   const { loading, error, totalPage } = useFetchPeople(pageNum);
@@ -23,7 +23,7 @@ const TableContainer: React.FC = () => {
     <>
       <div className="m-2 p-2">
         <SearchComponent />
-        <TableComponent data={peopleDetailList} loading={loading} />
+        <TableComponent data={searchResult.length === 0 ? peopleDetailList : searchResult} loading={loading} />
         <PaginationComponent
           totalPage={totalPage}
           pageNum={pageNum}
