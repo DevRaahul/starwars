@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFetchPeople } from "@/hooks/useFetchPeople";
 import { TableComponent } from "./TableComponent";
 import { useAppSelector } from "@/store/hooks";
@@ -18,11 +18,15 @@ const TableContainer: React.FC = () => {
     setpageNum((prev) => prev - 1);
   };
 
+  useEffect(() => {
+    console.log(peopleDetailList);
+  }, [peopleDetailList]);
+
   return (
     <>
       <div className="m-2 p-2">
         <SearchComponent />
-        <TableComponent data={searchResult.length === 0 ? peopleDetailList : searchResult} loading={loading} />
+        <TableComponent data={searchResult.length === 0 ? peopleDetailList : searchResult} loading={loading} showFavIcon={false} />
         <PaginationComponent pageNum={pageNum} handleNextBtnClick={handleNextBtnClick} handlePrevBtnClick={handlePrevBtnClick} />
       </div>
     </>

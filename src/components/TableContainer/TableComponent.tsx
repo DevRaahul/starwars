@@ -3,12 +3,12 @@ import TableHeaderComponent from "./TableHeaderComponent";
 import TableBodyCompoent from "./TableBodyCompoent";
 import type { ITableComponent } from "@/constants/peopleInterface";
 
-export const TableComponent: React.FC<ITableComponent> = ({ data, loading }) => {
+export const TableComponent: React.FC<ITableComponent> = ({ data, loading, showFavIcon }) => {
   return (
     <div className="rounded-md border border-gray-300">
       <Table>
         <TableHeaderComponent />
-        <TableBodyCompoent data={data} loading={loading} showFavIcon={false} />
+        <TableBodyCompoent data={data} loading={loading} showFavIcon={showFavIcon} />
       </Table>
     </div>
   );

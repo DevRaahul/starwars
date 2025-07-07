@@ -7,7 +7,7 @@ const FilmDetails: React.FC<IFilmDetailsComp> = ({ films, loading }) => {
     return (
       <ul className="pl-4 list-disc">
         {films.map((str) => (
-          <li>{str}</li>
+          <li key={str}>{str}</li>
         ))}
       </ul>
     );

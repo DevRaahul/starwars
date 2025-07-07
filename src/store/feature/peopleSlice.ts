@@ -45,8 +45,18 @@ export const peopleSlice = createSlice({
       let data = { ...state.pageInfo, ...action.payload };
       state.pageInfo = data;
     },
+    changeGender: (state, action) => {
+      const { person, personGender } = action.payload;
+
+      const modifiedList: IPersonInfo[] = state.peopleDetailList.map((record) =>
+        record.uid === person.uid ? { ...record, gender: personGender } : record
+      );
+      console.log("58", modifiedList);
+
+      state.peopleDetailList = modifiedList;
+    },
   },
 });
 
-export const { setPeopleList, setFetchedList, setSearchedList, setSearchResult, setPageInfo } = peopleSlice.actions;
+export const { setPeopleList, setFetchedList, setSearchedList, setSearchResult, setPageInfo, changeGender } = peopleSlice.actions;
 export default peopleSlice.reducer;
