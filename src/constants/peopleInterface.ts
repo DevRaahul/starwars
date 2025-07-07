@@ -152,3 +152,9 @@ export interface ITableComponent {
 export interface IPersonalDetails {
   person: IPersonInfo;
 }
+
+export interface IPageInfo {
+  currentPageNum: number;
+  totalPage: number;
+  totalRecords: number;
+}

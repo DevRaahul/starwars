@@ -1,4 +1,4 @@
-import type { IPersonInfo } from "@/constants/peopleInterface";
+import type { IPageInfo, IPersonInfo } from "@/constants/peopleInterface";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface heroState {
@@ -8,6 +8,7 @@ export interface heroState {
   };
   searchList: IPersonInfo[];
   searchResult: IPersonInfo[];
+  pageInfo: IPageInfo;
 }
 
 const initialState: heroState = {
@@ -15,6 +16,11 @@ const initialState: heroState = {
   fetchedData: {},
   searchList: [],
   searchResult: [],
+  pageInfo: {
+    currentPageNum: 0,
+    totalPage: 0,
+    totalRecords: 0,
+  },
 };
 
 export const peopleSlice = createSlice({
@@ -35,8 +41,12 @@ export const peopleSlice = createSlice({
     setSearchResult: (state, action) => {
       state.searchResult = action.payload;
     },
+    setPageInfo: (state, action) => {
+      let data = { ...state.pageInfo, ...action.payload };
+      state.pageInfo = data;
+    },
   },
 });
 
-export const { setPeopleList, setFetchedList, setSearchedList, setSearchResult } = peopleSlice.actions;
+export const { setPeopleList, setFetchedList, setSearchedList, setSearchResult, setPageInfo } = peopleSlice.actions;
 export default peopleSlice.reducer;

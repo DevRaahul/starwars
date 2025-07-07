@@ -25,7 +25,7 @@ const TableBodyCompoent: React.FC<ITableComponent> = ({ data, loading, showFavIc
         {data.map((hero: IPersonInfo) => (
           <TableRow key={hero.uid}>
             {loading.nameLoading ? (
-              <TableCell className="min-w-[130px] sm:min-w-[120px] lg:min-w-[200px]">
+              <TableCell className="min-w-[130px] sm:min-w-[120px] lg:min-w-[200px] py-2">
                 <Skeleton className="h-4 bg-gray-400" />
               </TableCell>
             ) : (
@@ -37,14 +37,14 @@ const TableBodyCompoent: React.FC<ITableComponent> = ({ data, loading, showFavIc
               </TableCell>
             )}
             {loading.detailsLoading ? (
-              <TableCell className="min-w-[100px] sm:min-w-[80px] lg:min-w-[190px]">
+              <TableCell className="min-w-[100px] sm:min-w-[80px] lg:min-w-[190px] py-2">
                 <Skeleton className="h-4 bg-gray-400" />
               </TableCell>
             ) : (
               <TableCell className="p-4 min-w-[100px] sm:min-w-[80px] lg:min-w-[190px] text-ellipsis">{hero?.gender}</TableCell>
             )}
             {loading.detailsLoading ? (
-              <TableCell className="min-w-[80px] sm:min-w-[100px] lg:min-w-[190px]">
+              <TableCell className="min-w-[80px] sm:min-w-[100px] lg:min-w-[190px] py-2">
                 <Skeleton className="h-4 bg-gray-400" />
               </TableCell>
             ) : (

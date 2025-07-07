@@ -1,29 +1,15 @@
 import { useEffect, useState } from "react";
 import type { ICharacterDetails, IHeroDetails, IPeopleApi, IPersonInfo, loadingObj, PlanetDetailResponse } from "@/constants/peopleInterface";
-import { setPeopleList, setFetchedList, setSearchedList } from "@/store/feature/peopleSlice";
+import { setPeopleList, setFetchedList, setSearchedList, setPageInfo } from "@/store/feature/peopleSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getPeopleUrl, createListForView } from "../utils/utils";
 
 export const useFetchPeople = (pageNum: number) => {
-  const [totalPage, setTotalPage] = useState<number>(0);
+  // const [totalPage, setTotalPage] = useState<number>(0);
   const [loading, setLoading] = useState<loadingObj>({ nameLoading: false, detailsLoading: false });
   const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const { fetchedData } = useAppSelector((state) => state.people);
-
-  useEffect(() => {
-    debugger;
-    if (!fetchedData[pageNum]?.length) {
-      try {
-        setLoading({ nameLoading: true, detailsLoading: true });
-        fetchData(getPeopleUrl(pageNum));
-      } catch (e) {
-        console.log(e);
-      }
-    } else {
-      dispatch(setPeopleList(fetchedData[pageNum]));
-    }
-  }, [pageNum]);
 
   const getHeroDetails = (data: ICharacterDetails[]) => {
     //batch the character details promises
@@ -54,7 +40,14 @@ export const useFetchPeople = (pageNum: number) => {
     fetch(url)
       .then((res) => res.json())
       .then((data: IPeopleApi) => {
-        setTotalPage(data.total_pages);
+        // setTotalPage(data.total_pages);
+        dispatch(
+          setPageInfo({
+            currentPageNum: pageNum,
+            totalPage: data.total_pages,
+            totalRecords: data.total_records,
+          })
+        );
         dispatch(setPeopleList(data.results));
         setLoading((prev) => {
           return {
@@ -72,5 +65,18 @@ export const useFetchPeople = (pageNum: number) => {
       });
   };
 
-  return { loading, error, totalPage };
+  useEffect(() => {
+    if (!fetchedData[pageNum]?.length) {
+      try {
+        setLoading({ nameLoading: true, detailsLoading: true });
+        fetchData(getPeopleUrl(pageNum));
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      dispatch(setPeopleList(fetchedData[pageNum]));
+    }
+  }, [pageNum]);
+
+  return { loading, error };
 };

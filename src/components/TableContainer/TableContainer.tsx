@@ -8,8 +8,7 @@ import SearchComponent from "../searchComponent/SearchComponent";
 const TableContainer: React.FC = () => {
   const { peopleDetailList, searchResult } = useAppSelector((state) => state.people);
   const [pageNum, setpageNum] = useState<number>(1);
-
-  const { loading, error, totalPage } = useFetchPeople(pageNum);
+  const { loading, error } = useFetchPeople(pageNum);
 
   const handleNextBtnClick = () => {
     setpageNum((prev) => prev + 1);
@@ -24,12 +23,7 @@ const TableContainer: React.FC = () => {
       <div className="m-2 p-2">
         <SearchComponent />
         <TableComponent data={searchResult.length === 0 ? peopleDetailList : searchResult} loading={loading} />
-        <PaginationComponent
-          totalPage={totalPage}
-          pageNum={pageNum}
-          handleNextBtnClick={handleNextBtnClick}
-          handlePrevBtnClick={handlePrevBtnClick}
-        />
+        <PaginationComponent pageNum={pageNum} handleNextBtnClick={handleNextBtnClick} handlePrevBtnClick={handlePrevBtnClick} />
       </div>
     </>
   );
