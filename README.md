@@ -26,7 +26,8 @@ ii) Consider all data records fetched till now.
 I opt for the second option as it gives more records to choose from.
 
 What is remaining:-
-Not able to get the spaceship name as per characters (there is no direct way to fetch data)
+Not able to get the spaceship name as per characters (there is no direct way to fetch data).
+better mechanism to do error handling.
 
 What should have been added:-
 Wanted to add functionality to remove the ongoing fetch api call on pagination clicks
